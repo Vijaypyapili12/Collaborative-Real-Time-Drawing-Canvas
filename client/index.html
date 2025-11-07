@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Collaborative Drawing Canvas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="header">
+        <h2>Collaborative Canvas</h2>
+        <button id="themeToggle" title="Toggle Dark/Light Mode">🌙</button>
+      </div>
+
+      <div id="users"></div>
+
+      <div class="controls">
+        <div id="colorPalette">
+          <h3>Colors</h3>
+          <div class="colors">
+            <div class="color" data-color="#000000" style="background:#000000"></div>
+            <div class="color" data-color="#ff0000" style="background:#ff0000"></div>
+            <div class="color" data-color="#00ff00" style="background:#00ff00"></div>
+            <div class="color" data-color="#0000ff" style="background:#0000ff"></div>
+            <div class="color" data-color="#ffff00" style="background:#ffff00"></div>
+            <div class="color" data-color="#ff00ff" style="background:#ff00ff"></div>
+            <div class="color" data-color="#ffffff" style="background:#ffffff;border:1px solid #ccc;"></div>
+          </div>
+        </div>
+
+        <label>Width <input type="range" id="widthRange" min="1" max="40" value="4" /></label>
+
+        <div class="toolBtns">
+          <button id="brushBtn" class="active">Brush</button>
+          <button id="eraserBtn">Eraser</button>
+        </div>
+
+        <div class="shapeBtns">
+          <button id="lineBtn">Line</button>
+          <button id="rectBtn">Rect</button>
+          <button id="circleBtn">Circle</button>
+          <button id="textBtn">Text</button>
+        </div>
+
+        <div class="historyBtns">
+          <button id="undoBtn">Undo</button>
+          <button id="redoBtn">Redo</button>
+          <button id="clearBtn">Clear</button>
+        </div>
+      </div>
+    </aside>
+
+    <main id="main">
+      <canvas id="board"></canvas>
+      <div id="cursors"></div>
+    </main>
+  </div>
+
+  <!-- 🎨 WELCOME MODAL -->
+<div id="welcomeModal" class="modal">
+  <div class="modal-content">
+    <h2 id="welcomeHeading">🎨 Welcome to Collaborative Canvas!</h2>
+    <p>Draw, write, and collaborate with others in real-time.</p>
+    <ul>
+      <li>🖌️ <b>Brush:</b> Freehand drawing</li>
+      <li>⚪ <b>Shapes:</b> Line, Rectangle, Circle tools</li>
+      <li>🧽 <b>Eraser:</b> Remove mistakes easily</li>
+      <li>🅰️ <b>Text:</b> Add notes on canvas</li>
+      <li>🌗 <b>Dark/Light Mode:</b> Switch your style</li>
+    </ul>
+    <button id="startBtn">Start Drawing</button>
+  </div>
+</div>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="module" src="main.js"></script>
+</div>
+
+</body>
+</html>
