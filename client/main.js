@@ -498,5 +498,6 @@ if (modal && startBtn) {
   });
 }
 
+
 resize();
 updateCursor();
