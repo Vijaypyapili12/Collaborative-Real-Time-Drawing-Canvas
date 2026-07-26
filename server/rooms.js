@@ -11,9 +11,10 @@ export function createRoomManager(io) {
 
     return {
       name,
-      addUser(id) {
+      addUser(id, customUsername) {
         const color = randomColor();
-        users[id] = { color };
+        const userName = customUsername || `User_${id.slice(0, 4)}`;
+        users[id] = { name: userName, color };
         return users[id];
       },
       removeUser(id) {
@@ -21,7 +22,12 @@ export function createRoomManager(io) {
       },
       getUsersMap() {
         const map = {};
-        for (const id in users) map[id] = users[id].color;
+        for (const id in users) {
+          map[id] = {
+            name: users[id].name,
+            color: users[id].color
+          };
+        }
         return map;
       },
     };
