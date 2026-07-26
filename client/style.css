@@ -20,130 +20,177 @@ body, html, #app {
   --sidebar-bg: #111827;
   --sidebar-text: #ffffff;
   --main-bg: #f3f4f6;
-  --btn-bg: #e5e7eb;
-  --btn-text: #111;
-  --active-bg: #2563eb;
+  --btn-bg: #1f2937;
+  --btn-text: #f3f4f6;
+  --active-bg: #3b82f6;
   --active-text: #fff;
   --eraser-bg: rgba(255,255,255,0.6);
 }
 
 /* === LIGHT MODE === */
 body.light {
-  --sidebar-bg: #f9fafb;
-  --sidebar-text: #111;
-  --main-bg: #1f2937;
-  --btn-bg: #374151;
-  --btn-text: #fff;
-  --active-bg: #10b981;
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #111827;
+  --main-bg: #e5e7eb;
+  --btn-bg: #f3f4f6;
+  --btn-text: #111827;
+  --active-bg: #2563eb;
   --active-text: #fff;
   --eraser-bg: rgba(0,0,0,0.4);
 }
 
 /* Sidebar */
 #sidebar {
-  width: 260px;
+  width: 280px;
   background: var(--sidebar-bg);
   color: var(--sidebar-text);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: background 0.3s ease, color 0.3s ease;
+  overflow-y: auto;
+  border-right: 1px solid rgba(150, 150, 150, 0.2);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
 }
 
-#themeToggle {
-  background: none;
-  border: none;
-  color: var(--sidebar-text);
-  font-size: 22px;
+.header h2 {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  flex: 1;
+}
+
+.header-actions {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+#themeToggle, #exitBtn {
+  background: var(--btn-bg);
+  border: 1px solid rgba(150, 150, 150, 0.2);
+  border-radius: 6px;
+  padding: 6px 8px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  font-size: 0.9rem;
+  color: var(--sidebar-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#themeToggle:hover {
-  transform: scale(1.1);
+#themeToggle:hover, #exitBtn:hover {
+  filter: brightness(1.2);
 }
 
-/* Users */
+#exitBtn:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(150, 150, 150, 0.8);
+  margin-top: 4px;
+}
+
+/* Users List */
 #users {
-  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+/* Color Wheel Container */
+#colorPalette {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-/* Color Palette */
-#colorPalette {
+.color-wheel-wrapper {
+  background: var(--sidebar-bg);
+  padding: 4px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#colorWheelCanvas, #colorWheelCursorCanvas {
+  border-radius: 50%;
+  display: block;
+}
+
+#colorWheelCanvas {
+  cursor: crosshair;
+}
+
+/* Controls & Buttons */
+.controls {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
-#colorPalette h3 {
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: var(--sidebar-text);
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
-.colors {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
+input[type="range"] {
+  width: 100%;
+  accent-color: var(--active-bg);
 }
 
-.color {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: transform 0.15s ease, border 0.15s ease;
-}
-
-.color:hover {
-  transform: scale(1.1);
-}
-
-.color.active {
-  border: 2px solid var(--active-bg);
-  box-shadow: 0 0 4px var(--active-bg);
-}
-
-/* Buttons */
 .toolBtns,
 .shapeBtns,
 .historyBtns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+}
+
+.historyBtns {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 button {
   padding: 6px 8px;
   border-radius: 6px;
-  border: none;
+  border: 1px solid rgba(150, 150, 150, 0.2);
   background: var(--btn-bg);
   color: var(--btn-text);
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  transition: all 0.15s ease;
 }
 
 button:hover {
-  filter: brightness(0.95);
-  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 button.active {
   background: var(--active-bg);
   color: var(--active-text);
+  border-color: var(--active-bg);
 }
 
 /* Canvas & Cursors */
@@ -151,15 +198,19 @@ button.active {
   flex: 1;
   position: relative;
   background: var(--main-bg);
-  transition: background 0.3s ease;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #board {
   width: 100%;
   height: 100%;
   display: block;
+  touch-action: none;
   pointer-events: auto;
   z-index: 1;
+  padding: 0;
+  margin: 0;
 }
 
 #cursors {
@@ -175,12 +226,12 @@ button.active {
 .cursor {
   position: absolute;
   transform: translate(-50%, -50%);
-  padding: 6px 8px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 10px;
+  font-size: 11px;
   color: #fff;
   font-weight: bold;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
 }
 
 /* Eraser */
@@ -193,6 +244,7 @@ button.active {
   z-index: 10;
   display: none;
 }
+
 /* === WELCOME MODAL === */
 .modal {
   position: fixed;
@@ -203,8 +255,6 @@ button.active {
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  opacity: 1;
-  transition: opacity 0.4s ease;
 }
 
 .modal-content {
@@ -215,8 +265,8 @@ button.active {
   text-align: center;
   width: 90%;
   max-width: 420px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  animation: fadeIn 0.4s ease;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(150, 150, 150, 0.2);
 }
 
 .modal-content h2 {
@@ -227,7 +277,18 @@ button.active {
 .modal-content p {
   font-size: 15px;
   margin-bottom: 10px;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin: 12px 0;
+  border-radius: 6px;
+  border: 1px solid rgba(150, 150, 150, 0.3);
+  background: var(--btn-bg);
   color: var(--sidebar-text);
+  font-size: 1rem;
+  outline: none;
 }
 
 .modal-content ul {
@@ -251,14 +312,5 @@ button.active {
   font-weight: 600;
   cursor: pointer;
   font-size: 15px;
+  width: 100%;
 }
-
-.modal-content button:hover {
-  filter: brightness(1.1);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-
