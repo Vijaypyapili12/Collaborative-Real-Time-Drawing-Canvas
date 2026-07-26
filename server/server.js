@@ -21,7 +21,17 @@ const drawingState = createDrawingState();
 
 io.on("connection", (socket) => {
   console.log("✅ User connected:", socket.id);
-  const user = defaultRoom.addUser(socket.id);
+
+  // 1. Grab the username sent from the client's auth object, fallback safely if missing
+  const customUsername = socket.handshake.auth.username || `User_${socket.id.slice(0, 4)}`;
+
+  // 2. Pass the custom username into your room manager user creation
+  const user = defaultRoom.addUser(socket.id, customUsername);
+
+  // Explicitly ensure the user object's name matches what was entered
+  if (user) {
+    user.name = customUsername;
+  }
 
   // Send initial state
   socket.emit("init", {
@@ -32,8 +42,13 @@ io.on("connection", (socket) => {
   });
 
   // Notify others
-  socket.broadcast.emit("user-joined", { userId: socket.id, color: user.color });
+  socket.broadcast.emit("user-joined", { 
+    userId: socket.id, 
+    color: user.color,
+    name: customUsername 
+  });
 
+  io.emit("update-users", defaultRoom.getUsersMap());
   // Drawing event
   socket.on("draw", (action) => {
     const serverAction = drawingState.addAction(action);
@@ -64,10 +79,11 @@ io.on("connection", (socket) => {
   // Disconnect
   socket.on("disconnect", () => {
     defaultRoom.removeUser(socket.id);
+    io.emit("update-users", defaultRoom.getUsersMap());
     socket.broadcast.emit("user-left", { userId: socket.id });
     console.log("❌ User disconnected:", socket.id);
   });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => console.log(`🌐 Server running at http://localhost:${PORT}`));
