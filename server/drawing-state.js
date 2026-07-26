@@ -38,3 +38,6 @@ export function createDrawingState() {
 
   return { addAction, undo, redo, clear, getActions };
 }
+
+
+
