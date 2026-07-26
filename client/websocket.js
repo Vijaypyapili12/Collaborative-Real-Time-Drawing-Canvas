@@ -1,3 +1,6 @@
+
+const socket = io(); 
+
 import { drawAction, redrawAll } from "./canvas.js";
 
 export function setupWebSocket(socket, state, ctx, renderUsers, updateRemoteCursor, removeRemoteCursor) {
@@ -17,13 +20,11 @@ export function setupWebSocket(socket, state, ctx, renderUsers, updateRemoteCurs
 
   socket.on("cursor", ({ userId, x, y }) => updateRemoteCursor(userId, x, y));
 
-  // Handle user joined with custom name & color
   socket.on("user-joined", ({ userId, color, name }) => {
     state.users[userId] = { name, color };
     renderUsers();
   });
 
-  // Handle full user list updates broadcasted from server
   socket.on("update-users", (usersMap) => {
     state.users = usersMap;
     renderUsers();
