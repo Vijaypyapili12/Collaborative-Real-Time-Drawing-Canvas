@@ -1,4 +1,3 @@
-
 const socket = io(); 
 
 import { drawAction, redrawAll } from "./canvas.js";
@@ -19,12 +18,6 @@ export function setupWebSocket(socket, state, ctx, renderUsers, updateRemoteCurs
   });
 
   socket.on("cursor", ({ userId, x, y }) => updateRemoteCursor(userId, x, y));
-
-<<<<<<< HEAD
-=======
-  
-  // Handle user joined with custom name & color
->>>>>>> 5e5857c3e1a3a80c0be093411e2de4ee422e4a22
   socket.on("user-joined", ({ userId, color, name }) => {
     state.users[userId] = { name, color };
     renderUsers();
