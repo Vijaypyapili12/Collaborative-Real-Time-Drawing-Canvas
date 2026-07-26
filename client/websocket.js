@@ -17,6 +17,7 @@ export function setupWebSocket(socket, state, ctx, renderUsers, updateRemoteCurs
 
   socket.on("cursor", ({ userId, x, y }) => updateRemoteCursor(userId, x, y));
 
+  
   // Handle user joined with custom name & color
   socket.on("user-joined", ({ userId, color, name }) => {
     state.users[userId] = { name, color };
