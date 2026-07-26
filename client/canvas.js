@@ -56,6 +56,7 @@ export function drawAction(ctx, action) {
   }
 }
 
+
 export function redrawAll(ctx, actions) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
   
