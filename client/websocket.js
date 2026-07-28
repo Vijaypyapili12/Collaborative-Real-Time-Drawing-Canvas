@@ -1,10 +1,4 @@
-const userName = prompt("Enter your name:", "MyName");
-const socket = io({
-  auth: {
-    name: userName || "Anonymous"
-  }
-}); 
-
+const socket = io;
 import { drawAction, redrawAll } from "./canvas.js";
 
 export function setupWebSocket(socket, state, ctx, renderUsers, updateRemoteCursor, removeRemoteCursor) {
