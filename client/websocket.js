@@ -1,4 +1,9 @@
-const socket = io(); 
+const userName = prompt("Enter your name:", "MyName");
+const socket = io({
+  auth: {
+    name: userName || "Anonymous"
+  }
+}); 
 
 import { drawAction, redrawAll } from "./canvas.js";
 
